@@ -908,6 +908,10 @@
             <label for="f-functie">Laatste functie</label>
             <input type="text" id="f-functie" name="functie" placeholder="Bijv. Mechanical Engineer bij ASML">
           </div>
+          <div class="form-field form-field-full">
+            <label for="f-regio">Regio</label>
+            <input type="text" id="f-regio" name="regio" placeholder="Bijv. Groningen, Overijssel, Gelderland...">
+          </div>
         </div>
         <input type="hidden" id="f-tmc-score" name="TMC score">
         <input type="hidden" id="f-te-score" name="T&E score">
@@ -915,7 +919,7 @@
         <input type="hidden" id="f-bd-score" name="Business IT & Data score">
         <input type="hidden" id="f-beste-cel" name="Beste match cel">
         <div id="form-error" class="form-error hidden">Vul alle verplichte velden in.</div>
-        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld en maximaal 12 maanden bewaard. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="mailto:maarten.smit@tmc.nl">maarten.smit@tmc.nl</a>.</p>
+        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="mailto:maarten.smit@tmc.nl">maarten.smit@tmc.nl</a>.</p>
         <button class="btn-submit" onclick="submitForm()">Verstuur mijn gegevens →</button>
       </div>
       <div id="form-success" class="form-success hidden">
@@ -1142,6 +1146,7 @@ async function submitForm() {
     email:      document.getElementById('f-email'),
     opleiding:  document.getElementById('f-opleiding'),
     functie:    document.getElementById('f-functie'),
+    regio:      document.getElementById('f-regio'),
   };
 
   // Validate required fields
@@ -1166,6 +1171,7 @@ async function submitForm() {
   data.append('E-mailadres',                fields.email.value.trim());
   data.append('Opleiding',                  fields.opleiding.value.trim());
   data.append('Laatste functie',            fields.functie.value.trim());
+  data.append('Regio',                      fields.regio.value.trim());
   data.append('TMC score',                  document.getElementById('f-tmc-score').value);
   data.append('T&E score',                  document.getElementById('f-te-score').value);
   data.append('I&E score',                  document.getElementById('f-ie-score').value);
