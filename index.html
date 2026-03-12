@@ -9,6 +9,15 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TMC-wijzer</title>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZM56ESZY9W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZM56ESZY9W');
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -919,7 +928,7 @@
         <input type="hidden" id="f-bd-score" name="Business IT & Data score">
         <input type="hidden" id="f-beste-cel" name="Beste match cel">
         <div id="form-error" class="form-error hidden">Vul alle verplichte velden in.</div>
-        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="mailto:maarten.smit@tmc.nl">maarten.smit@tmc.nl</a>.</p>
+        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="/cdn-cgi/l/email-protection#92fff3f3e0e6f7fcbce1fffbe6d2e6fff1bcfcfe"><span class="__cf_email__" data-cfemail="137e72726167767d3d607e7a6753677e703d7d7f">[email&#160;protected]</span></a>.</p>
         <button class="btn-submit" onclick="submitForm()">Verstuur mijn gegevens →</button>
       </div>
       <div id="form-success" class="form-success hidden">
@@ -945,7 +954,7 @@
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const questions = [
   { id: 1,  text: "Werkgevers moeten medewerkers ruimte geven om eigen ideeën uit te werken, mogelijk tot een eigen onderneming" },
   { id: 2,  text: "Ik verwacht 100% financiële transparantie van mijn werkgever." },
@@ -973,6 +982,7 @@ function startQuiz() {
   document.getElementById('screen-intro').classList.add('hidden');
   document.getElementById('screen-quiz').classList.remove('hidden');
   document.getElementById('btn-restart-header').classList.add('visible');
+  gtag('event', 'quiz_start', { event_category: 'Quiz', event_label: 'TMC-wijzer gestart' });
   renderQuestion();
 }
 
@@ -1136,6 +1146,13 @@ function showResults() {
   document.getElementById('f-bd-score').value = scores.bd + '%';
   const bestNames = cells.filter(c => c.score === maxScore && maxScore > 0).map(c => c.name);
   document.getElementById('f-beste-cel').value = bestNames.join(', ') || 'Geen';
+
+  gtag('event', 'quiz_complete', {
+    event_category: 'Quiz',
+    event_label: 'TMC-wijzer voltooid',
+    tmc_score: scores.tmc,
+    beste_cel: bestNames.join(', ') || 'Geen'
+  });
 }
 
 async function submitForm() {
@@ -1187,6 +1204,11 @@ async function submitForm() {
     if (res.ok) {
       document.getElementById('form-wrap').classList.add('hidden');
       document.getElementById('form-success').classList.remove('hidden');
+      gtag('event', 'form_submit', {
+        event_category: 'Formulier',
+        event_label: 'Contactformulier verstuurd',
+        beste_cel: document.getElementById('f-beste-cel').value
+      });
     } else {
       btn.disabled = false;
       btn.textContent = 'Verstuur mijn gegevens →';
