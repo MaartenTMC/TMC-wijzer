@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZM56ESZY9W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-ZM56ESZY9W');
+</script>
 <meta property="og:title" content="Vul de TMC-wijzer in!">
 <meta property="og:description" content="Beantwoord de stellingen en ontdek of ons unieke Employeneurship-model bij jou past — en bij welke van onze businesscellen jij aan de slag kan!">
 <meta property="og:type" content="website">
@@ -919,7 +926,7 @@
         <input type="hidden" id="f-bd-score" name="Business IT & Data score">
         <input type="hidden" id="f-beste-cel" name="Beste match cel">
         <div id="form-error" class="form-error hidden">Vul alle verplichte velden in.</div>
-        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="mailto:maarten.smit@tmc.nl">maarten.smit@tmc.nl</a>.</p>
+        <p class="privacy-note">We gebruiken je gegevens uitsluitend om contact met je op te nemen over je aanvraag. Je gegevens worden niet met derden gedeeld. Je kunt altijd verzoeken om je gegevens te laten verwijderen door contact op te nemen via <a href="/cdn-cgi/l/email-protection#cba6aaaab9bfaea5e5b8a6a2bf8bbfa6a8e5a5a7"><span class="__cf_email__" data-cfemail="cfa2aeaebdbbaaa1e1bca2a6bb8fbba2ace1a1a3">[email&#160;protected]</span></a>.</p>
         <button class="btn-submit" onclick="submitForm()">Verstuur mijn gegevens →</button>
       </div>
       <div id="form-success" class="form-success hidden">
@@ -945,7 +952,7 @@
 
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 const questions = [
   { id: 1,  text: "Werkgevers moeten medewerkers ruimte geven om eigen ideeën uit te werken, mogelijk tot een eigen onderneming" },
   { id: 2,  text: "Ik verwacht 100% financiële transparantie van mijn werkgever." },
@@ -970,6 +977,7 @@ let answers = {};
 let current = 0;
 
 function startQuiz() {
+  gtag('event', 'quiz_started');
   document.getElementById('screen-intro').classList.add('hidden');
   document.getElementById('screen-quiz').classList.remove('hidden');
   document.getElementById('btn-restart-header').classList.add('visible');
@@ -1053,6 +1061,7 @@ function calcScores() {
 }
 
 function showResults() {
+  gtag('event', 'quiz_completed');
   document.getElementById('screen-quiz').classList.add('hidden');
   document.getElementById('screen-results').classList.remove('hidden');
 
@@ -1185,6 +1194,7 @@ async function submitForm() {
       headers: { 'Accept': 'application/json' }
     });
     if (res.ok) {
+      gtag('event', 'form_submitted');
       document.getElementById('form-wrap').classList.add('hidden');
       document.getElementById('form-success').classList.remove('hidden');
     } else {
@@ -1204,11 +1214,4 @@ async function submitForm() {
 function restart() {
   answers = {};
   current = 0;
-  document.getElementById('screen-results').classList.add('hidden');
-  document.getElementById('screen-quiz').classList.add('hidden');
-  document.getElementById('screen-intro').classList.remove('hidden');
-  document.getElementById('btn-restart-header').classList.remove('visible');
-}
-</script>
-</body>
-</html>
+  document.getElementById('screen-results').classList.add('hidden')
